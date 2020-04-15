@@ -2,9 +2,10 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import {BootstrapVue} from 'bootstrap-vue';
 import VueMoment from 'vue-moment';
-import Home from '../views/Home.vue';
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import 'bootstrap-vue/dist/bootstrap-vue.min.css';
+import Home from '../views/Home';
+import Receipt from '../views/Receipt';
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -15,6 +16,11 @@ const routes = [
 		path: '/',
 		name: 'Home',
 		component: Home
+	},
+	{
+		path: '/receipt/:id',
+		name: 'Receipt',
+		component: Receipt
 	}
 ];
 

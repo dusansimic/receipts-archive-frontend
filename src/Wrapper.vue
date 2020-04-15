@@ -1,17 +1,20 @@
 <template>
-	<b-container>
-		<b-row>
-			<b-col>
-				<NavBar/>
-			</b-col>
-		</b-row>
-		<b-row>
-			<b-col lg="10" md="10">
-				<RouterView/>
-			</b-col>
-			<b-col></b-col>
-		</b-row>
-	</b-container>
+	<BContainer>
+		<BRow>
+			<BCol>
+				<NavBar />
+			</BCol>
+		</BRow>
+		<BRow>
+			<BCol
+				lg="10"
+				md="10"
+			>
+				<RouterView />
+			</BCol>
+			<BCol />
+		</BRow>
+	</BContainer>
 </template>
 
 <script>
@@ -21,5 +24,5 @@ export default {
 	components: {
 		NavBar
 	}
-}
+};
 </script>

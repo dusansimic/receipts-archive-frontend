@@ -1,5 +1,5 @@
 <template>
-	<Wrapper/>
+  <Wrapper />
 </template>
 
 <script>
