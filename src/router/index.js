@@ -6,6 +6,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap-vue/dist/bootstrap-vue.min.css';
 import Home from '../views/Home';
 import Receipt from '../views/Receipt';
+import EditReceipt from '../views/EditReceipt';
 
 Vue.use(VueRouter);
 Vue.use(BootstrapVue);
@@ -21,6 +22,11 @@ const routes = [
 		path: '/receipt/:id',
 		name: 'Receipt',
 		component: Receipt
+	},
+	{
+		path: '/edit/receipt/:id',
+		name: 'EditReceipt',
+		component: EditReceipt
 	}
 ];
 

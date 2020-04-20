@@ -14,50 +14,20 @@
 			id="nav-collapse"
 			is-nav
 		>
-			<BNavbarNav>
-				<BNavItem href="#">
-					Link
-				</BNavItem>
-				<BNavItem
-					href="#"
-					disabled
-				>
-					Disabled
-				</BNavItem>
-			</BNavbarNav>
-
 			<!-- Right aligned nav items -->
 			<BNavbarNav class="ml-auto">
-				<BNavForm>
-					<BFormInput
-						size="sm"
-						class="mr-sm-2"
-						placeholder="Search"
-					/>
-					<BButton
-						size="sm"
-						class="my-2 my-sm-0"
-						type="submit"
-					>
-						Search
-					</BButton>
-				</BNavForm>
-
 				<BNavItemDropdown
-					text="Lang"
+					text="Manage"
 					right
 				>
 					<BDropdownItem href="#">
-						EN
+						Locations
 					</BDropdownItem>
 					<BDropdownItem href="#">
-						ES
+						Receipts
 					</BDropdownItem>
 					<BDropdownItem href="#">
-						RU
-					</BDropdownItem>
-					<BDropdownItem href="#">
-						FA
+						Items
 					</BDropdownItem>
 				</BNavItemDropdown>
 

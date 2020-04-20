@@ -55,10 +55,10 @@ export default {
 	},
 	methods: {
 		async getReceiptData() {
-			this.receiptData = (await ky.get(`http://localhost:3001/receipts?id=${this.$route.params.id}`).json())[0];
+			this.receiptData = (await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?id=${this.$route.params.id}`).json())[0];
 		},
 		async getItemsData() {
-			this.itemsData = await ky.get(`http://localhost:3001/items/inreceipt/${this.$route.params.id}`).json();
+			this.itemsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt/${this.$route.params.id}`).json();
 		}
 	}
 };

@@ -5,7 +5,7 @@
 				<ReceiptCard />
 			</BCol>
 			<BCol>
-				<BButton variant="primary">
+				<BButton variant="primary" :to="{name: 'EditReceipt', params: {id: this.$route.params.id}}">
 					Edit
 				</BButton>
 				<BButton variant="danger">

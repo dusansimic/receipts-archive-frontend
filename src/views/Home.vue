@@ -47,10 +47,9 @@ export default {
 	},
 	methods: {
 		async getReceiptsList() {
-			this.receiptsList = await ky.get('http://localhost:3001/receipts?createdBy=115314100014658551287').json();
+			this.receiptsList = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?createdBy=115314100014658551287`).json();
 		},
 		logRow(receipt) {
-			console.log(receipt);
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});
 		}
 	}
