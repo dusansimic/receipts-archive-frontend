@@ -2,14 +2,16 @@
 	<div>
 		<h2>Home</h2>
 		<BTable
-			striped
 			hover
 			:items="receiptsList"
 			:fields="tableFields"
-			@row-clicked="logRow"
+			@row-clicked="manageReceipt"
 		>
-			<template #cell(createdAt)="receipt">
-				{{ receipt.item.createdAt | moment('from', 'now') }}
+			<template #cell(totalPrice)="row">
+				{{ row.item.totalPrice.Float64.toFixed(2) }}
+			</template>
+			<template #cell(createdAt)="row">
+				{{ row.item.createdAt | moment('from', 'now') }}
 			</template>
 		</BTable>
 	</div>
@@ -17,6 +19,7 @@
 
 <script>
 import ky from 'ky';
+import {credentialsOptions} from '../common';
 
 export default {
 	name: 'Home',
@@ -47,10 +50,13 @@ export default {
 	},
 	methods: {
 		async getReceiptsList() {
-			this.receiptsList = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?createdBy=115314100014658551287`).json();
+			this.receiptsList = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts`, credentialsOptions).json();
 		},
-		logRow(receipt) {
+		manageReceipt(receipt) {
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});
+		},
+		okDeleteModal() {
+			console.log('Ok delete modal');
 		}
 	}
 };

@@ -1,163 +1,110 @@
 <template>
-	<div>
-		<BButton block variant="outline-primary" @click="showAddItemModal()">
+	<BOverlay :show="!loaded">
+		<h2>Edit receipt</h2>
+		<BRow v-if="receiptData">
+			<BCol lg>
+				<BCard class="value-card">
+					<span class="value-card-title">
+						Date
+					</span>
+					<br />
+					<span class="value-card-data">
+						{{ receiptData.createdAt | moment('DD. MM. YYYY.') }}
+					</span>
+				</BCard>
+			</BCol>
+			<BCol lg>
+				<BCard class="value-card">
+					<span class="value-card-title">
+						Time
+					</span>
+					<br />
+					<span class="value-card-data">
+						{{ receiptData.createdAt | moment('HH:mm') }}
+					</span>
+				</BCard>
+			</BCol>
+			<BCol lg>
+				<BCard class="value-card">
+					<span class="value-card-title">
+						Total price
+					</span>
+					<br />
+					<span class="value-card-data">
+						{{ receiptData.totalPrice.Float64.toFixed(2) }} <small>rsd</small>
+					</span>
+				</BCard>
+			</BCol>
+		</BRow>
+
+		<BButton block variant="outline-primary" @click="showAddItemInReceiptModal()">
 			Add item
 		</BButton>
+
 		<BTable
 			id="items-table"
-			striped
 			hover
 			:items="itemsData"
 			:fields="itemsTableFields"
 		>
 			<template #cell(actions)="row">
-				<BButton size="sm" @click="editItemInReceipt(row.item)">
+				<BButton size="sm" @click="showEditItemInReceiptModal(row.item)">
 					Edit
 				</BButton>
-				<BButton size="sm" variant="danger" @click="removeItemInReceipt(row.item)">
+				<BButton size="sm" variant="danger" @click="showDeleteItemInReceiptModal(row.item)">
 					Remove
 				</BButton>
 			</template>
 		</BTable>
 
 		<!-- Update item from receipt modal -->
-		<BModal v-model="editItemInReceiptModalData.showModal" @ok="updateItemInReceipt()">
-			<BForm @submit.prevent @submit="updateItemInReceipt()">
-				<BFormGroup
-					id="amountInputGroup"
-					label="Amount:"
-					label-for="amountInput"
-					description="Amount of specific item"
-				>
-					<BFormInput
-						id="amountInput"
-						v-model.number="editItemInReceiptModalData.formData.amount"
-						type="number"
-						required
-						placeholder="1"
-					/>
-				</BFormGroup>
-				<BButton block @click="editItem(editItemInReceiptModalData.formData.id)">
-					Edit item
-				</BButton>
-			</BForm>
-		</BModal>
+		<UpdateItemInReceiptModal
+			id="edit-item-in-receipt-modal"
+			:modal-form-data-prop="editItemInReceiptModalData"
+			@ok="editItemInReceipt"
+		/>
 
-		<!-- Update item modal -->
-		<BModal v-model="editItemModalData.showModal" @ok="updateItem()">
-			<BForm @submit.prevent @submit="updateItem()">
-				<BFormGroup
-					id="nameInputGroup"
-					label="Name:"
-					label-for="nameInput"
-					description="Name of specific item"
-				>
-					<BFormInput
-						id="nameInput"
-						v-model="editItemModalData.formData.name"
-						type="text"
-						required
-					/>
-				</BFormGroup>
+		<!-- Add item in receipt -->
+		<EditItemInReceiptModal
+			id="add-item-in-receipt-modal"
+			show-new-item-button
+			@ok="addItemInReceipt"
+			@new-item="showAddItemModal"
+		/>
 
-				<BFormGroup
-					id="priceInputGroup"
-					label="Price:"
-					label-for="priceInput"
-					description="Price of specific item"
-				>
-					<BFormInput
-						id="priceInput"
-						v-model.number="editItemModalData.formData.price"
-						type="number"
-						required
-					/>
-				</BFormGroup>
+		<!-- Delete receipt modal -->
+		<DeleteModal
+			id="delete-item-in-receipt-modal"
+			target-type="item"
+			:target-description="deleteItemInReceiptModalData.name"
+			:target-id="deleteItemInReceiptModalData.id"
+			@ok="deleteItemInReceipt"
+		/>
 
-				<BFormGroup
-					id="unitInputGroup"
-					label="Unit:"
-					label-for="unitInput"
-					description="Unit of specific item"
-				>
-					<BFormInput
-						id="unitInput"
-						v-model="editItemModalData.formData.unit"
-						type="text"
-						required
-						placeholder="kom"
-					/>
-				</BFormGroup>
-			</BForm>
-		</BModal>
-
-		<!-- Add item modal -->
-		<BModal v-model="addItemModalData.showModal" @ok="addItem()">
-			<BForm @submit.prevent @submit="addItem()">
-				<BFormGroup
-					id="nameInputGroup"
-					label="Name:"
-					label-for="nameInput"
-					description="Name of specific item"
-				>
-					<BFormInput
-						id="nameInput"
-						v-model="addItemModalData.formData.name"
-						type="text"
-						required
-						@input="searchItems()"
-					/>
-				</BFormGroup>
-
-				<!--
-					Item search results table
-					It'd be great if this would be replaced by results dropdown
-				-->
-				<BTable
-					v-if="addItemModalData.itemsSearchResults && addItemModalData.showResults"
-					id="results-table"
-					:items="addItemModalData.itemsSearchResults"
-					:fields="addItemModalData.searchResultsTableFields"
-					:per-page="5"
-					:current-page="addItemModalData.itemsSearchResultsPage"
-					@row-clicked="pickItem"
-					small
-					striped
-				/>
-
-				<BPagination
-					v-if="addItemModalData.itemsSearchResults && addItemModalData.showResults"
-					v-model="addItemModalData.itemsSearchResultsPage"
-					:total-rows="addItemModalData.itemsSearchResults.length"
-					:per-page="5"
-					align="fill"
-					aria-controls="results-table"
-				/>
-
-				<BFormGroup
-					id="amountInputGroup"
-					label="Amount:"
-					label-for="amountInput"
-					description="Amount of specified item in items unit"
-				>
-					<BFormInput
-						id="amountInput"
-						v-model.number="addItemModalData.formData.amount"
-						type="number"
-						required
-					/>
-				</BFormGroup>
-			</BForm>
-		</BModal>
-	</div>
+		<!-- Add new item modal -->
+		<EditItemModal
+			id="add-item-modal"
+			@ok="addItem"
+		/>
+	</BOverlay>
 </template>
 
 <script>
+import EditItemModal from '../components/EditItemModal';
+import EditItemInReceiptModal from '../components/EditItemInReceiptModal';
+import UpdateItemInReceiptModal from '../components/UpdateItemInReceiptModal';
+import DeleteModal from '../components/DeleteModal';
 import ky from 'ky';
-import debounce from 'lodash/debounce';
+import {credentialsOptions} from '../common';
 
 export default {
 	name: 'EditReceipt',
+	components: {
+		EditItemModal,
+		EditItemInReceiptModal,
+		UpdateItemInReceiptModal,
+		DeleteModal
+	},
 	data() {
 		return {
 			itemsTableFields: [
@@ -179,133 +126,102 @@ export default {
 				}
 			],
 			itemsData: null,
+			receiptData: null,
 			editItemInReceiptModalData: {
-				showModal: false,
-				formData: {
-					id: null,
-					amount: null
-				}
+				id: null,
+				amount: null
 			},
-			editItemModalData: {
-				showModal: false,
-				formData: {
-					id: null,
-					name: null,
-					price: null,
-					unit: null
-				}
+			deleteItemInReceiptModalData: {
+				id: null,
+				name: null
 			},
-			addItemModalData: {
-				showModal: false,
-				itemsSearchResults: null,
-				itemsSearchResultsPage: 1,
-				searchResultsTableFields: [
-					{
-						key: 'name',
-						label: 'Name',
-						sortable: true
-					},
-					{
-						key: 'price',
-						label: 'Price'
-					},
-					{
-						key: 'unit',
-						label: 'Unit'
-					}
-				],
-				showResults: true,
-				formData: {
-					selectedItemId: null,
-					name: null,
-					amount: null
-				}
-			}
+			loaded: false
 		};
 	},
-	mounted() {
-		this.getItemsData();
+	async mounted() {
+		this.receiptData = await this.getReceiptData();
+		this.itemsData = await this.getItemsData();
+		this.loaded = true;
 	},
 	methods: {
+		// Get receipt data as json
+		async getReceiptData() {
+			return (await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
+		},
+		// Get items data as json
 		async getItemsData() {
-			this.itemsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt/${this.$route.params.id}`).json();
+			return ky.get(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
 		},
-		editItemInReceipt(item) {
-			this.editItemInReceiptModalData.formData.id = item.id;
-			this.editItemInReceiptModalData.formData.amount = item.amount;
-			this.editItemInReceiptModalData.showModal = true;
+		// Show modal for editing item in receipt and fill the from
+		showEditItemInReceiptModal(receipt) {
+			this.editItemInReceiptModalData.id = receipt.id;
+			this.editItemInReceiptModalData.amount = receipt.amount;
+			this.$bvModal.show('edit-item-in-receipt-modal');
 		},
-		async removeItemInReceipt(item) {
-			const data = {
-				itemId: item.id
-			};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
-				json: data
-			});
-
-			this.getItemsData();
-		},
-		editItem(id) {
-			const item = this.itemsData.find(item => item.id === id);
-			this.editItemModalData.formData.id = item.itemId;
-			this.editItemModalData.formData.name = item.name;
-			this.editItemModalData.formData.price = item.price;
-			this.editItemModalData.formData.unit = item.unit;
-			this.editItemModalData.showModal = true;
-		},
-		async updateItemInReceipt() {
-			const data = this.editItemInReceiptModalData.formData;
+		// Logic for updating item in receipt
+		async editItemInReceipt(data) {
+			this.loaded = false;
 			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+				...credentialsOptions,
 				json: data
 			});
 
-			this.editItemInReceiptModalData.showModal = false;
-			this.getItemsData();
+			this.receiptData = await this.getReceiptData();
+			this.itemsData = await this.getItemsData();
+			this.loaded = true;
 		},
-		async updateItem() {
-			const data = this.editItemModalData.formData;
-			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/items`, {
-				json: data
-			});
+		// Show modal for adding new item in receipt
+		showAddItemInReceiptModal() {
+			this.$bvModal.show('add-item-in-receipt-modal');
+		},
+		// Logic for adding new item in receipt
+		async addItemInReceipt(rawData) {
+			this.loaded = false;
 
-			this.editItemModalData.showModal = false;
-			this.getItemsData();
-		},
-		searchItems: debounce(async function () {
-			// If name input is empty, don't search since it returns all items
-			if (this.addItemModalData.formData.name === '') {
-				this.addItemModalData.itemsSearchResults = null;
-				return;
-			}
-
-			this.addItemModalData.itemsSearchResults = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/items`, {
-				searchParams: {
-					name: this.addItemModalData.formData.name
-				}
-			}).json();
-			this.addItemModalData.showResults = true;
-		}, 500),
-		pickItem(item) {
-			this.addItemModalData.formData.selectedItemId = item.id;
-			this.addItemModalData.formData.name = item.name;
-			this.addItemModalData.showResults = false;
-		},
-		showAddItemModal() {
-			this.addItemModalData.showModal = true;
-		},
-		async addItem() {
 			const data = {
 				receiptId: this.$route.params.id,
-				itemId: this.addItemModalData.formData.selectedItemId,
-				amount: this.addItemModalData.formData.amount
+				itemId: rawData.selectedItemId,
+				amount: rawData.amount
 			};
 
 			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+				...credentialsOptions,
 				json: data
 			});
 
-			this.addItemModalData.showModal = false;
-			this.getItemsData();
+			this.receiptData = await this.getReceiptData();
+			this.itemsData = await this.getItemsData();
+			this.loaded = true;
+		},
+		// Show modal for deleting item in receipt
+		showDeleteItemInReceiptModal(item) {
+			this.deleteItemInReceiptModalData.id = item.id;
+			this.deleteItemInReceiptModalData.name = item.name;
+			this.$bvModal.show('delete-item-in-receipt-modal');
+		},
+		// Logic for deleting item in receipt
+		async deleteItemInReceipt(itemId) {
+			this.loaded = false;
+			const data = {itemId};
+			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+				...credentialsOptions,
+				json: data
+			});
+
+			this.receiptData = await this.getReceiptData();
+			this.itemsData = await this.getItemsData();
+			this.loaded = true;
+		},
+		// Show modal for adding new item to database
+		showAddItemModal() {
+			this.$bvModal.show('add-item-modal');
+		},
+		// Locig for adding new item to database
+		async addItem(data) {
+			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+				...credentialsOptions,
+				json: data
+			});
 		}
 	}
 };
@@ -314,5 +230,14 @@ export default {
 <style scoped>
 #items-table button {
 	margin: 0 2px;
+}
+.value-card {
+	margin-bottom: 10px;
+}
+.value-card .value-card-title {
+	color: #00000077;
+}
+.value-card .value-card-data {
+	font-size: 1.5em;
 }
 </style>

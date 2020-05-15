@@ -20,13 +20,13 @@
 					text="Manage"
 					right
 				>
-					<BDropdownItem href="#">
+					<BDropdownItem to="/manage/locations">
 						Locations
 					</BDropdownItem>
-					<BDropdownItem href="#">
+					<BDropdownItem to="/manage/receipts">
 						Receipts
 					</BDropdownItem>
-					<BDropdownItem href="#">
+					<BDropdownItem to="/manage/items">
 						Items
 					</BDropdownItem>
 				</BNavItemDropdown>
@@ -36,6 +36,9 @@
 					<template #button-content>
 						<em>User</em>
 					</template>
+					<BDropdownItem to="/login">
+						Login
+					</BDropdownItem>
 					<BDropdownItem href="#">
 						Profile
 					</BDropdownItem>

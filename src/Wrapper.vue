@@ -12,7 +12,6 @@
 			>
 				<RouterView />
 			</BCol>
-			<BCol />
 		</BRow>
 	</BContainer>
 </template>
