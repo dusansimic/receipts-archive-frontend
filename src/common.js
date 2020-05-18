@@ -9,9 +9,7 @@ export const credentialsOptions = {
 					text: await response.text()
 				};
 
-				if (data.status === 401 && data.text === 'No authorization token cookie found!') {
-					location.href = `${process.env.VUE_APP_FRONTEND_URL}/login`;
-				} else if (data.status === 401 && data.text === 'The token has expired!') {
+				if (data.status === 401 && data.text === 'Session has expired or is invalid!') {
 					location.href = `${process.env.VUE_APP_FRONTEND_URL}/login`;
 				}
 			}

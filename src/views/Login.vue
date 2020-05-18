@@ -1,9 +1,13 @@
 <template>
 	<div>
-		<h2>Login</h2>
-		<Center>
-			<GoogleSigninButton @click="onButtonClick()" />
-		</Center>
+		<BRow>
+			<BCol />
+			<BCol lg="6">
+				<h2>Login</h2>
+				<GoogleSigninButton @click="onGoogleSigninButtonClick()" />
+			</BCol>
+			<BCol />
+		</BRow>
 	</div>
 </template>
 
@@ -16,8 +20,7 @@ export default {
 		GoogleSigninButton
 	},
 	methods: {
-		onButtonClick() {
-			console.log('Clicked!');
+		onGoogleSigninButtonClick() {
 			location.href = `${process.env.VUE_APP_BACKEND_URL}/auth`;
 		}
 	}
