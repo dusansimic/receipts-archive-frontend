@@ -1,5 +1,5 @@
 # Start from node alpine image
-FROM node:14-alpine as builder
+FROM node:lts-alpine as builder
 
 # Setting workdir inside the container
 WORKDIR /app
