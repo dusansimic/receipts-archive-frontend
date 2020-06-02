@@ -29,7 +29,7 @@
 					<td>
 						Total:
 						<span class="totalPrice">
-							{{ receiptData.totalPrice.Float64.toFixed(2) }}
+							{{ receiptData.totalPrice.toFixed(2) }}
 						</span>
 					</td>
 				</tr>

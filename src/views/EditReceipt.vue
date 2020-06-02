@@ -31,7 +31,7 @@
 					</span>
 					<br />
 					<span class="value-card-data">
-						{{ receiptData.totalPrice.Float64.toFixed(2) }} <small>rsd</small>
+						{{ receiptData.totalPrice.toFixed(2) }} <small>rsd</small>
 					</span>
 				</BCard>
 			</BCol>

@@ -12,7 +12,7 @@
 			@row-clicked="manageReceipt"
 		>
 			<template #cell(totalPrice)="row">
-				{{ row.item.totalPrice.Float64.toFixed(2) }}
+				{{ row.item.totalPrice.toFixed(2) }}
 			</template>
 			<template #cell(locationNameAndAddress)="row">
 				{{ row.item.location.name }}@{{ row.item.location.address }}
@@ -164,7 +164,7 @@ export default {
 		showDeleteReceiptModal(receipt) {
 			this.deleteReceiptModalData.id = receipt.id;
 			this.deleteReceiptModalData.locationName = receipt.location.name;
-			this.deleteReceiptModalData.totalPrice = receipt.totalPrice.Float64.toFixed(2);
+			this.deleteReceiptModalData.totalPrice = receipt.totalPrice.toFixed(2);
 			this.$bvModal.show('delete-receipt-modal');
 		},
 		async deleteReceipt(id) {

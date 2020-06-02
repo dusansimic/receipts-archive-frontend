@@ -8,7 +8,7 @@
 			@row-clicked="manageReceipt"
 		>
 			<template #cell(totalPrice)="row">
-				{{ row.item.totalPrice.Float64.toFixed(2) }}
+				{{ row.item.totalPrice.toFixed(2) }}
 			</template>
 			<template #cell(createdAt)="row">
 				{{ row.item.createdAt | moment('from', 'now') }}
@@ -54,9 +54,6 @@ export default {
 		},
 		manageReceipt(receipt) {
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});
-		},
-		okDeleteModal() {
-			console.log('Ok delete modal');
 		}
 	}
 };
