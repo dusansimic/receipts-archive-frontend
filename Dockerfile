@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy package.json
 COPY package.json .
 
+ENV VUE_APP_BACKEND_URL=http://localhost:3000
+ENV VUE_APP_FRONTEND_URL=http://localhost:8080
+
 # Download all dependencies
 RUN npm install
 
