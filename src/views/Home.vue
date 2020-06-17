@@ -50,7 +50,7 @@ export default {
 	},
 	methods: {
 		async getReceiptsList() {
-			this.receiptsList = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts`, credentialsOptions).json();
+			this.receiptsList = await ky.get('/api/receipts', credentialsOptions).json();
 		},
 		manageReceipt(receipt) {
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});

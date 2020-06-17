@@ -104,7 +104,7 @@ export default {
 	},
 	methods: {
 		async getItemData() {
-			return ky.get(`${process.env.VUE_APP_BACKEND_URL}/items`, credentialsOptions).json();
+			return ky.get('/api/items', credentialsOptions).json();
 		},
 		showEditItemModal(item) {
 			this.editItemModalData.id = item.id;
@@ -115,7 +115,7 @@ export default {
 		},
 		async editItem(data) {
 			this.loaded = false;
-			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+			await ky.put('/api/items', {
 				...credentialsOptions,
 				json: data
 			});
@@ -128,7 +128,7 @@ export default {
 		},
 		async addItem(data) {
 			this.loaded = false;
-			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+			await ky.post('/api/items', {
 				...credentialsOptions,
 				json: data
 			});
@@ -144,7 +144,7 @@ export default {
 		async deleteItem(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+			await ky.delete('/api/items', {
 				...credentialsOptions,
 				json: data
 			});

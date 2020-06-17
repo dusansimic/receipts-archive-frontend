@@ -100,7 +100,7 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			this.locationsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/locations`, credentialsOptions).json();
+			this.locationsData = await ky.get('/api/locations', credentialsOptions).json();
 		},
 		showEditLocationModal(location) {
 			this.editLocationModalData.id = location.id;
@@ -110,7 +110,7 @@ export default {
 		},
 		async editLocation(data) {
 			this.loaded = false;
-			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/locations`, {
+			await ky.put('/api/locations', {
 				...credentialsOptions,
 				json: data
 			});
@@ -123,7 +123,7 @@ export default {
 		},
 		async addLocation(data) {
 			this.loaded = false;
-			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/locations`, {
+			await ky.post('/api/locations', {
 				...credentialsOptions,
 				json: data
 			});
@@ -140,7 +140,7 @@ export default {
 		async deleteLocation(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/locations`, {
+			await ky.delete('/api/locations', {
 				...credentialsOptions,
 				json: data
 			});

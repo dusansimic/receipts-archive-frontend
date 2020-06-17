@@ -56,10 +56,10 @@ export default {
 	},
 	methods: {
 		async getReceiptData() {
-			this.receiptData = (await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
+			this.receiptData = (await ky.get(`/api/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
 		},
 		async getItemsData() {
-			this.itemsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
+			this.itemsData = await ky.get(`/api/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
 		}
 	}
 };

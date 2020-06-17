@@ -115,7 +115,7 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			const rawLocationsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/locations`, credentialsOptions).json();
+			const rawLocationsData = await ky.get('/api/locations', credentialsOptions).json();
 
 			this.locationsData = rawLocationsData.map(location => {
 				return {
@@ -125,7 +125,7 @@ export default {
 			});
 		},
 		async getReceiptsData() {
-			this.receiptsData = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts`, credentialsOptions).json();
+			this.receiptsData = await ky.get('/api/receipts', credentialsOptions).json();
 		},
 		showEditReceiptModal(receipt) {
 			this.editReceiptModalData.id = receipt.id;
@@ -136,7 +136,7 @@ export default {
 		},
 		async editReceipt(data) {
 			this.loaded = false;
-			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/receipts`, {
+			await ky.put('/api/receipts', {
 				...credentialsOptions,
 				json: data
 			});
@@ -153,7 +153,7 @@ export default {
 				id: formData.locationId,
 				createdAt: formData.date + 'T' + formData.time + '.000Z'
 			};
-			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/receipts`, {
+			await ky.post('/api/receipts', {
 				...credentialsOptions,
 				json: data
 			});
@@ -170,7 +170,7 @@ export default {
 		async deleteReceipt(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/receipts`, {
+			await ky.delete('/api/receipts', {
 				...credentialsOptions,
 				json: data
 			});

@@ -60,7 +60,7 @@ export default {
 	name: 'NavBar',
 	methods: {
 		async onSignOutButtonClick() {
-			await ky.get(`${process.env.VUE_APP_BACKEND_URL}/auth/logout`, {
+			await ky.get('/api/auth/logout', {
 				credentials: 'include'
 			});
 			this.$router.push({name: 'Login'});

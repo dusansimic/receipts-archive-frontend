@@ -146,11 +146,11 @@ export default {
 	methods: {
 		// Get receipt data as json
 		async getReceiptData() {
-			return (await ky.get(`${process.env.VUE_APP_BACKEND_URL}/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
+			return (await ky.get(`/api/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
 		},
 		// Get items data as json
 		async getItemsData() {
-			return ky.get(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
+			return ky.get(`/api/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
 		},
 		// Show modal for editing item in receipt and fill the from
 		showEditItemInReceiptModal(receipt) {
@@ -161,7 +161,7 @@ export default {
 		// Logic for updating item in receipt
 		async editItemInReceipt(data) {
 			this.loaded = false;
-			await ky.put(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+			await ky.put('/api/items/inreceipt', {
 				...credentialsOptions,
 				json: data
 			});
@@ -184,7 +184,7 @@ export default {
 				amount: rawData.amount
 			};
 
-			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+			await ky.post('/api/items/inreceipt', {
 				...credentialsOptions,
 				json: data
 			});
@@ -203,7 +203,7 @@ export default {
 		async deleteItemInReceipt(itemId) {
 			this.loaded = false;
 			const data = {itemId};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/items/inreceipt`, {
+			await ky.delete('/api/items/inreceipt', {
 				...credentialsOptions,
 				json: data
 			});
@@ -218,7 +218,7 @@ export default {
 		},
 		// Locig for adding new item to database
 		async addItem(data) {
-			await ky.post(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+			await ky.post('/api/items', {
 				...credentialsOptions,
 				json: data
 			});

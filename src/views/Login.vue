@@ -21,7 +21,7 @@ export default {
 	},
 	methods: {
 		onGoogleSigninButtonClick() {
-			location.href = `${process.env.VUE_APP_BACKEND_URL}/auth`;
+			location.href = '/api/auth';
 		}
 	}
 };

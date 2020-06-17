@@ -29,7 +29,7 @@ export default {
 	methods: {
 		async deleteReceipt() {
 			const data = {id: this.$route.params.id};
-			await ky.delete(`${process.env.VUE_APP_BACKEND_URL}/receipts`, {
+			await ky.delete('/api/receipts', {
 				...credentialsOptions,
 				json: data
 			});

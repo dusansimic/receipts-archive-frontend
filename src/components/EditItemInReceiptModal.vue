@@ -130,7 +130,7 @@ export default {
 				return;
 			}
 
-			this.searchResultsTable.itemsSearchResults = await ky.get(`${process.env.VUE_APP_BACKEND_URL}/items`, {
+			this.searchResultsTable.itemsSearchResults = await ky.get(`/api/items`, {
 				...credentialsOptions,
 				searchParams: {
 					name: this.modalFormData.name
