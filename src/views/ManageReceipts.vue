@@ -115,7 +115,7 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			const rawLocationsData = await ky.get('/locations', {
+			const rawLocationsData = await ky.get('locations', {
 				...credentialsOptions,
 				...prefixApiOptions,
 			}).json();
@@ -128,7 +128,7 @@ export default {
 			});
 		},
 		async getReceiptsData() {
-			this.receiptsData = await ky.get('/receipts', {
+			this.receiptsData = await ky.get('receipts', {
 				...credentialsOptions,
 				...prefixApiOptions,
 			}).json();
@@ -142,7 +142,7 @@ export default {
 		},
 		async editReceipt(data) {
 			this.loaded = false;
-			await ky.put('/receipts', {
+			await ky.put('receipts', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -160,7 +160,7 @@ export default {
 				id: formData.locationId,
 				createdAt: formData.date + 'T' + formData.time + '.000Z',
 			};
-			await ky.post('/receipts', {
+			await ky.post('receipts', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -178,7 +178,7 @@ export default {
 		async deleteReceipt(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete('/receipts', {
+			await ky.delete('receipts', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,

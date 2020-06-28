@@ -40,7 +40,7 @@
 
 <script>
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'ReceiptCard',
@@ -56,10 +56,16 @@ export default {
 	},
 	methods: {
 		async getReceiptData() {
-			this.receiptData = (await ky.get(`/api/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
+			this.receiptData = (await ky.get(`receipts?id=${this.$route.params.id}`, {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json())[0];
 		},
 		async getItemsData() {
-			this.itemsData = await ky.get(`/api/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
+			this.itemsData = await ky.get(`items/inreceipt/${this.$route.params.id}`, {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 	},
 };

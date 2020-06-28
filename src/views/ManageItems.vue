@@ -104,7 +104,10 @@ export default {
 	},
 	methods: {
 		async getItemData() {
-			return ky.get('/api/items', credentialsOptions).json();
+			return ky.get('items', {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 		showEditItemModal(item) {
 			this.editItemModalData.id = item.id;
@@ -115,7 +118,7 @@ export default {
 		},
 		async editItem(data) {
 			this.loaded = false;
-			await ky.put('/api/items', {
+			await ky.put('items', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -129,7 +132,7 @@ export default {
 		},
 		async addItem(data) {
 			this.loaded = false;
-			await ky.post('/api/items', {
+			await ky.post('items', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -146,7 +149,7 @@ export default {
 		async deleteItem(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete('/api/items', {
+			await ky.delete('items', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,

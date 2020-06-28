@@ -19,7 +19,7 @@
 <script>
 import ReceiptCard from '../components/ReceiptCard';
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'Receipt',
@@ -29,9 +29,9 @@ export default {
 	methods: {
 		async deleteReceipt() {
 			const data = {id: this.$route.params.id};
-			await ky.delete('/api/receipts', {
-				...credentailsOptions,
-...prefixApiOptions,
+			await ky.delete('receipts', {
+				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 

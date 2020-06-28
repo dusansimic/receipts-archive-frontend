@@ -146,11 +146,17 @@ export default {
 	methods: {
 		// Get receipt data as json
 		async getReceiptData() {
-			return (await ky.get(`/api/receipts?id=${this.$route.params.id}`, credentialsOptions).json())[0];
+			return (await ky.get(`receipts?id=${this.$route.params.id}`, {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json())[0];
 		},
 		// Get items data as json
 		async getItemsData() {
-			return ky.get(`/api/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
+			return ky.get(`items/inreceipt/${this.$route.params.id}`, {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 		// Show modal for editing item in receipt and fill the from
 		showEditItemInReceiptModal(receipt) {
@@ -161,7 +167,7 @@ export default {
 		// Logic for updating item in receipt
 		async editItemInReceipt(data) {
 			this.loaded = false;
-			await ky.put('/api/items/inreceipt', {
+			await ky.put('items/inreceipt', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -185,7 +191,7 @@ export default {
 				amount: rawData.amount,
 			};
 
-			await ky.post('/api/items/inreceipt', {
+			await ky.post('items/inreceipt', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -205,7 +211,7 @@ export default {
 		async deleteItemInReceipt(itemId) {
 			this.loaded = false;
 			const data = {itemId};
-			await ky.delete('/api/items/inreceipt', {
+			await ky.delete('items/inreceipt', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -221,7 +227,7 @@ export default {
 		},
 		// Locig for adding new item to database
 		async addItem(data) {
-			await ky.post('/api/items', {
+			await ky.post('items', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,

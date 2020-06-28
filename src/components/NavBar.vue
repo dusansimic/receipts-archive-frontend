@@ -55,13 +55,15 @@
 
 <script>
 import ky from 'ky';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'NavBar',
 	methods: {
 		async onSignOutButtonClick() {
-			await ky.get('/api/auth/logout', {
-				credentials: 'include',
+			await ky.get('auth/logout', {
+				...credentialsOptions,
+				...prefixApiOptions,
 			});
 			this.$router.push({name: 'Login'});
 		},

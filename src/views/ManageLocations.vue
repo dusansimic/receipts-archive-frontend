@@ -100,7 +100,7 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			this.locationsData = await ky.get('/locations', {
+			this.locationsData = await ky.get('locations', {
 				...credentialsOptions,
 				...prefixApiOptions,
 			}).json();
@@ -113,7 +113,7 @@ export default {
 		},
 		async editLocation(data) {
 			this.loaded = false;
-			await ky.put('/locations', {
+			await ky.put('locations', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -127,7 +127,7 @@ export default {
 		},
 		async addLocation(data) {
 			this.loaded = false;
-			await ky.post('/locations', {
+			await ky.post('locations', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,
@@ -145,7 +145,7 @@ export default {
 		async deleteLocation(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete('/locations', {
+			await ky.delete('locations', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				json: data,

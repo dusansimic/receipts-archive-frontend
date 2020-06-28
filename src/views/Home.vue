@@ -19,7 +19,7 @@
 
 <script>
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'Home',
@@ -50,7 +50,10 @@ export default {
 	},
 	methods: {
 		async getReceiptsList() {
-			this.receiptsList = await ky.get('/api/receipts', credentialsOptions).json();
+			this.receiptsList = await ky.get('receipts', {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 		manageReceipt(receipt) {
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});

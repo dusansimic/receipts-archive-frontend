@@ -130,7 +130,7 @@ export default {
 				return;
 			}
 
-			this.searchResultsTable.itemsSearchResults = await ky.get('/api/items', {
+			this.searchResultsTable.itemsSearchResults = await ky.get('items', {
 				...credentialsOptions,
 				...prefixApiOptions,
 				searchParams: {
