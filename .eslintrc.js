@@ -3,9 +3,13 @@ module.exports = {
 	env: {
 		node: true
 	},
-	'extends': [
+	extends: [
 		'xo',
 		'xo-vue'
+	],
+	plugins: [
+		'import',
+		'unicorn'
 	],
 	parserOptions: {
 		parser: 'babel-eslint'
@@ -14,4 +18,4 @@ module.exports = {
 		'no-console': 'off',
 		'no-debugger': 'off'
 	}
-}
+};
