@@ -29,20 +29,20 @@ export default {
 				{
 					key: 'totalPrice',
 					label: 'Price',
-					sortable: true
+					sortable: true,
 				},
 				{
 					key: 'location.name',
 					label: 'Location',
-					sortable: false
+					sortable: false,
 				},
 				{
 					key: 'createdAt',
 					label: 'Created at',
-					sortable: true
-				}
+					sortable: true,
+				},
 			],
-			receiptsList: []
+			receiptsList: [],
 		};
 	},
 	mounted() {
@@ -54,7 +54,7 @@ export default {
 		},
 		manageReceipt(receipt) {
 			this.$router.push({name: 'Receipt', params: {id: receipt.id}});
-		}
-	}
+		},
+	},
 };
 </script>

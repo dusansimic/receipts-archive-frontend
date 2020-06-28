@@ -29,8 +29,8 @@ export default {
 	props: {
 		modalFormDataProp: {
 			type: Object,
-			required: true
-		}
+			required: true,
+		},
 	},
 	computed: {
 		listeners() {
@@ -45,12 +45,12 @@ export default {
 		},
 		modalFormData() {
 			return this.modalFormDataProp;
-		}
+		},
 	},
 	methods: {
 		ok() {
 			this.$emit('ok', this.modalFormData);
-		}
-	}
+		},
+	},
 };
 </script>

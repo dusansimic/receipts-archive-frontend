@@ -58,40 +58,40 @@ export default {
 	name: 'ManageLocations',
 	components: {
 		EditLocationModal,
-		DeleteModal
+		DeleteModal,
 	},
 	data() {
 		return {
 			locationsTableFields: [
 				{
 					key: 'name',
-					label: 'Name'
+					label: 'Name',
 				},
 				{
 					key: 'address',
-					label: 'Address'
+					label: 'Address',
 				},
 				{
 					key: 'updatedAt',
-					label: 'Updated'
+					label: 'Updated',
 				},
 				{
 					key: 'actions',
-					label: 'Actions'
-				}
+					label: 'Actions',
+				},
 			],
 			locationsData: null,
 			editLocationModalData: {
 				id: null,
 				name: null,
-				address: null
+				address: null,
 			},
 			deleteLocationModalData: {
 				id: null,
 				name: null,
-				address: null
+				address: null,
 			},
-			loaded: false
+			loaded: false,
 		};
 	},
 	async mounted() {
@@ -112,7 +112,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/locations', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getLocationsData();
@@ -125,7 +125,7 @@ export default {
 			this.loaded = false;
 			await ky.post('/api/locations', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getLocationsData();
@@ -142,13 +142,13 @@ export default {
 			const data = {id};
 			await ky.delete('/api/locations', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getLocationsData();
 			this.loaded = true;
-		}
-	}
+		},
+	},
 };
 </script>
 

@@ -61,10 +61,10 @@ export default {
 	methods: {
 		async onSignOutButtonClick() {
 			await ky.get('/api/auth/logout', {
-				credentials: 'include'
+				credentials: 'include',
 			});
 			this.$router.push({name: 'Login'});
-		}
-	}
+		},
+	},
 };
 </script>

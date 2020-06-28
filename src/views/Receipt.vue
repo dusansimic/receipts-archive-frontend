@@ -24,19 +24,19 @@ import {credentialsOptions} from '../common';
 export default {
 	name: 'Receipt',
 	components: {
-		ReceiptCard
+		ReceiptCard,
 	},
 	methods: {
 		async deleteReceipt() {
 			const data = {id: this.$route.params.id};
 			await ky.delete('/api/receipts', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.$router.push({name: 'Home'});
-		}
-	}
+		},
+	},
 };
 </script>
 

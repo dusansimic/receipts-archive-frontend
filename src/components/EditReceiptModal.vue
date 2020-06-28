@@ -53,12 +53,12 @@ export default {
 	props: {
 		modalFormDataProp: {
 			type: Object,
-			default: null
+			default: null,
 		},
 		locationsData: {
 			type: Array,
-			required: true
-		}
+			required: true,
+		},
 	},
 	computed: {
 		listeners() {
@@ -76,10 +76,10 @@ export default {
 				id: null,
 				locationId: null,
 				date: null,
-				time: null
+				time: null,
 			};
 			return formData;
-		}
+		},
 	},
 	methods: {
 		ok() {
@@ -88,9 +88,9 @@ export default {
 				id: null,
 				locationId: null,
 				date: null,
-				time: null
+				time: null,
 			};
-		}
-	}
+		},
+	},
 };
 </script>

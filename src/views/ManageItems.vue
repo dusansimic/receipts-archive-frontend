@@ -62,40 +62,40 @@ export default {
 	name: 'ManageItems',
 	components: {
 		EditItemModal,
-		DeleteModal
+		DeleteModal,
 	},
 	data() {
 		return {
 			itemsTableFields: [
 				{
 					key: 'name',
-					label: 'Name'
+					label: 'Name',
 				},
 				{
 					key: 'price',
-					label: 'Price'
+					label: 'Price',
 				},
 				{
 					key: 'unit',
-					label: 'Unit'
+					label: 'Unit',
 				},
 				{
 					key: 'actions',
-					label: 'Actions'
-				}
+					label: 'Actions',
+				},
 			],
 			itemsData: null,
 			editItemModalData: {
 				id: null,
 				name: null,
 				price: null,
-				unit: null
+				unit: null,
 			},
 			deleteItemModalData: {
 				id: null,
-				name: null
+				name: null,
 			},
-			loaded: false
+			loaded: false,
 		};
 	},
 	async mounted() {
@@ -117,7 +117,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/items', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.itemsData = await this.getItemData();
@@ -130,7 +130,7 @@ export default {
 			this.loaded = false;
 			await ky.post('/api/items', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.itemsData = await this.getItemData();
@@ -146,13 +146,13 @@ export default {
 			const data = {id};
 			await ky.delete('/api/items', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.itemsData = await this.getItemData();
 			this.loaded = true;
-		}
-	}
+		},
+	},
 };
 </script>
 

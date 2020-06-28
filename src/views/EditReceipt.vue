@@ -103,39 +103,39 @@ export default {
 		EditItemModal,
 		EditItemInReceiptModal,
 		UpdateItemInReceiptModal,
-		DeleteModal
+		DeleteModal,
 	},
 	data() {
 		return {
 			itemsTableFields: [
 				{
 					key: 'name',
-					label: 'Name'
+					label: 'Name',
 				},
 				{
 					key: 'amount',
-					label: 'Amount'
+					label: 'Amount',
 				},
 				{
 					key: 'price',
-					label: 'Price'
+					label: 'Price',
 				},
 				{
 					key: 'actions',
-					label: 'Actions'
-				}
+					label: 'Actions',
+				},
 			],
 			itemsData: null,
 			receiptData: null,
 			editItemInReceiptModalData: {
 				id: null,
-				amount: null
+				amount: null,
 			},
 			deleteItemInReceiptModalData: {
 				id: null,
-				name: null
+				name: null,
 			},
-			loaded: false
+			loaded: false,
 		};
 	},
 	async mounted() {
@@ -163,7 +163,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/items/inreceipt', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.receiptData = await this.getReceiptData();
@@ -181,12 +181,12 @@ export default {
 			const data = {
 				receiptId: this.$route.params.id,
 				itemId: rawData.selectedItemId,
-				amount: rawData.amount
+				amount: rawData.amount,
 			};
 
 			await ky.post('/api/items/inreceipt', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.receiptData = await this.getReceiptData();
@@ -205,7 +205,7 @@ export default {
 			const data = {itemId};
 			await ky.delete('/api/items/inreceipt', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			this.receiptData = await this.getReceiptData();
@@ -220,10 +220,10 @@ export default {
 		async addItem(data) {
 			await ky.post('/api/items', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
-		}
-	}
+		},
+	},
 };
 </script>
 

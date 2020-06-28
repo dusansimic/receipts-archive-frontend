@@ -17,16 +17,16 @@ export default {
 	props: {
 		targetType: {
 			type: String,
-			default: null
+			default: null,
 		},
 		targetDescription: {
 			type: String,
-			default: null
+			default: null,
 		},
 		targetId: {
 			type: String,
-			default: null
-		}
+			default: null,
+		},
 	},
 	computed: {
 		listeners() {
@@ -40,15 +40,15 @@ export default {
 			const {
 				okVariant,
 				okTitle,
-				...attrs
+				...attributes
 			} = this.$attrs;
-			return attrs;
-		}
+			return attributes;
+		},
 	},
 	methods: {
 		ok() {
 			this.$emit('ok', this.targetId);
-		}
-	}
+		},
+	},
 };
 </script>

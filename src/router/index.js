@@ -20,44 +20,44 @@ const routes = [
 	{
 		path: '/',
 		name: 'Home',
-		component: Home
+		component: Home,
 	},
 	{
 		path: '/login',
 		name: 'Login',
-		component: Login
+		component: Login,
 	},
 	{
 		path: '/manage/locations',
 		name: 'ManageLocations',
-		component: ManageLocations
+		component: ManageLocations,
 	},
 	{
 		path: '/manage/receipts',
 		name: 'ManageReceipts',
-		component: ManageReceipts
+		component: ManageReceipts,
 	},
 	{
 		path: '/manage/items',
 		name: 'ManageItems',
-		component: ManageItems
+		component: ManageItems,
 	},
 	{
 		path: '/receipt/:id',
 		name: 'Receipt',
-		component: Receipt
+		component: Receipt,
 	},
 	{
 		path: '/edit/receipt/:id',
 		name: 'EditReceipt',
-		component: EditReceipt
-	}
+		component: EditReceipt,
+	},
 ];
 
 const router = new VueRouter({
 	mode: 'history',
 	base: process.env.BASE_URL,
-	routes
+	routes,
 });
 
 export default router;

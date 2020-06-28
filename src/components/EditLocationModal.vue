@@ -37,8 +37,8 @@ export default {
 	props: {
 		modalFormDataProp: {
 			type: Object,
-			default: null
-		}
+			default: null,
+		},
 	},
 	computed: {
 		listeners() {
@@ -54,15 +54,15 @@ export default {
 		modalFormData() {
 			const formData = this.modalFormDataProp || {
 				name: null,
-				address: null
+				address: null,
 			};
 			return formData;
-		}
+		},
 	},
 	methods: {
 		ok() {
 			this.$emit('ok', this.modalFormData);
-		}
-	}
+		},
+	},
 };
 </script>

@@ -70,27 +70,27 @@ export default {
 	name: 'ManageReceipts',
 	components: {
 		EditReceiptModal,
-		DeleteModal
+		DeleteModal,
 	},
 	data() {
 		return {
 			receiptsTableFields: [
 				{
 					key: 'totalPrice',
-					label: 'Total'
+					label: 'Total',
 				},
 				{
 					key: 'locationNameAndAddress',
-					label: 'Location'
+					label: 'Location',
 				},
 				{
 					key: 'updatedAt',
-					label: 'Updated'
+					label: 'Updated',
 				},
 				{
 					key: 'actions',
-					label: 'Actions'
-				}
+					label: 'Actions',
+				},
 			],
 			locationsData: null,
 			receiptsData: null,
@@ -98,14 +98,14 @@ export default {
 				id: null,
 				locationId: null,
 				date: null,
-				time: null
+				time: null,
 			},
 			deleteReceiptModalData: {
 				id: null,
 				locationName: null,
-				totalPrice: null
+				totalPrice: null,
 			},
-			loaded: false
+			loaded: false,
 		};
 	},
 	async mounted() {
@@ -120,7 +120,7 @@ export default {
 			this.locationsData = rawLocationsData.map(location => {
 				return {
 					value: location.id,
-					text: `${location.name}@${location.address}`
+					text: `${location.name}@${location.address}`,
 				};
 			});
 		},
@@ -138,7 +138,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/receipts', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getReceiptsData();
@@ -151,11 +151,11 @@ export default {
 			this.loaded = false;
 			const data = {
 				id: formData.locationId,
-				createdAt: formData.date + 'T' + formData.time + '.000Z'
+				createdAt: formData.date + 'T' + formData.time + '.000Z',
 			};
 			await ky.post('/api/receipts', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getReceiptsData();
@@ -172,7 +172,7 @@ export default {
 			const data = {id};
 			await ky.delete('/api/receipts', {
 				...credentialsOptions,
-				json: data
+				json: data,
 			});
 
 			await this.getReceiptsData();
@@ -180,8 +180,8 @@ export default {
 		},
 		manageReceipt(receipt) {
 			this.$router.push({name: 'EditReceipt', params: {id: receipt.id}});
-		}
-	}
+		},
+	},
 };
 </script>
 

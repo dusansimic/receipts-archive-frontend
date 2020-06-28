@@ -47,7 +47,7 @@ export default {
 	data() {
 		return {
 			receiptData: null,
-			itemsData: null
+			itemsData: null,
 		};
 	},
 	mounted() {
@@ -60,8 +60,8 @@ export default {
 		},
 		async getItemsData() {
 			this.itemsData = await ky.get(`/api/items/inreceipt/${this.$route.params.id}`, credentialsOptions).json();
-		}
-	}
+		},
+	},
 };
 </script>
 

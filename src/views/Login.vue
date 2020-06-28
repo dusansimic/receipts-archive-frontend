@@ -17,12 +17,12 @@ import GoogleSigninButton from '../components/GoogleSigninButton';
 export default {
 	name: 'Login',
 	components: {
-		GoogleSigninButton
+		GoogleSigninButton,
 	},
 	methods: {
 		onGoogleSigninButtonClick() {
 			location.href = '/api/auth';
-		}
-	}
+		},
+	},
 };
 </script>

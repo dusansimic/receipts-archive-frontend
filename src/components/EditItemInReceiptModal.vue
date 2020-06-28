@@ -31,9 +31,9 @@
 				:fields="searchResultsTable.searchResultsTableFields"
 				:per-page="5"
 				:current-page="searchResultsTable.itemsSearchResultsPage"
-				@row-clicked="pickItem"
 				small
 				striped
+				@row-clicked="pickItem"
 			/>
 
 			<BPagination
@@ -71,12 +71,12 @@ export default {
 	name: 'EditItemInReceiptModal',
 	props: {
 		showNewItemButton: {
-			type: Boolean
+			type: Boolean,
 		},
 		modalFormDataProp: {
 			type: Object,
-			default: null
-		}
+			default: null,
+		},
 	},
 	data() {
 		return {
@@ -87,19 +87,19 @@ export default {
 					{
 						key: 'name',
 						label: 'Name',
-						sortable: true
+						sortable: true,
 					},
 					{
 						key: 'price',
-						label: 'Price'
+						label: 'Price',
 					},
 					{
 						key: 'unit',
-						label: 'Unit'
-					}
+						label: 'Unit',
+					},
 				],
-				showResults: true
-			}
+				showResults: true,
+			},
 		};
 	},
 	computed: {
@@ -117,10 +117,10 @@ export default {
 			const formData = this.modalFormDataProp || {
 				selctedItemId: null,
 				name: null,
-				amount: null
+				amount: null,
 			};
 			return formData;
-		}
+		},
 	},
 	methods: {
 		searchItems: debounce(async function () {
@@ -130,11 +130,11 @@ export default {
 				return;
 			}
 
-			this.searchResultsTable.itemsSearchResults = await ky.get(`/api/items`, {
+			this.searchResultsTable.itemsSearchResults = await ky.get('/api/items', {
 				...credentialsOptions,
 				searchParams: {
-					name: this.modalFormData.name
-				}
+					name: this.modalFormData.name,
+				},
 			}).json();
 			this.searchResultsTable.showResults = true;
 		}, 500),
@@ -148,7 +148,7 @@ export default {
 		},
 		newItem() {
 			this.$emit('new-item');
-		}
-	}
+		},
+	},
 };
 </script>
