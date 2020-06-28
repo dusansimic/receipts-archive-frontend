@@ -52,7 +52,7 @@
 import EditLocationModal from '../components/EditLocationModal';
 import DeleteModal from '../components/DeleteModal';
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'ManageLocations',
@@ -100,7 +100,10 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			this.locationsData = await ky.get('/api/locations', credentialsOptions).json();
+			this.locationsData = await ky.get('/locations', {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 		showEditLocationModal(location) {
 			this.editLocationModalData.id = location.id;
@@ -110,8 +113,9 @@ export default {
 		},
 		async editLocation(data) {
 			this.loaded = false;
-			await ky.put('/api/locations', {
+			await ky.put('/locations', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -123,8 +127,9 @@ export default {
 		},
 		async addLocation(data) {
 			this.loaded = false;
-			await ky.post('/api/locations', {
+			await ky.post('/locations', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -140,8 +145,9 @@ export default {
 		async deleteLocation(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete('/api/locations', {
+			await ky.delete('/locations', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 

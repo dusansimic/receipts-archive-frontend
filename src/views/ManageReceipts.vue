@@ -64,7 +64,7 @@
 import EditReceiptModal from '../components/EditReceiptModal';
 import DeleteModal from '../components/DeleteModal';
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'ManageReceipts',
@@ -115,7 +115,10 @@ export default {
 	},
 	methods: {
 		async getLocationsData() {
-			const rawLocationsData = await ky.get('/api/locations', credentialsOptions).json();
+			const rawLocationsData = await ky.get('/locations', {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 
 			this.locationsData = rawLocationsData.map(location => {
 				return {
@@ -125,7 +128,10 @@ export default {
 			});
 		},
 		async getReceiptsData() {
-			this.receiptsData = await ky.get('/api/receipts', credentialsOptions).json();
+			this.receiptsData = await ky.get('/receipts', {
+				...credentialsOptions,
+				...prefixApiOptions,
+			}).json();
 		},
 		showEditReceiptModal(receipt) {
 			this.editReceiptModalData.id = receipt.id;
@@ -136,8 +142,9 @@ export default {
 		},
 		async editReceipt(data) {
 			this.loaded = false;
-			await ky.put('/api/receipts', {
+			await ky.put('/receipts', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -153,8 +160,9 @@ export default {
 				id: formData.locationId,
 				createdAt: formData.date + 'T' + formData.time + '.000Z',
 			};
-			await ky.post('/api/receipts', {
+			await ky.post('/receipts', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -170,8 +178,9 @@ export default {
 		async deleteReceipt(id) {
 			this.loaded = false;
 			const data = {id};
-			await ky.delete('/api/receipts', {
+			await ky.delete('/receipts', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 

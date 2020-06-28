@@ -95,7 +95,7 @@ import EditItemInReceiptModal from '../components/EditItemInReceiptModal';
 import UpdateItemInReceiptModal from '../components/UpdateItemInReceiptModal';
 import DeleteModal from '../components/DeleteModal';
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'EditReceipt',
@@ -163,6 +163,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/items/inreceipt', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -186,6 +187,7 @@ export default {
 
 			await ky.post('/api/items/inreceipt', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -205,6 +207,7 @@ export default {
 			const data = {itemId};
 			await ky.delete('/api/items/inreceipt', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -220,6 +223,7 @@ export default {
 		async addItem(data) {
 			await ky.post('/api/items', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 		},

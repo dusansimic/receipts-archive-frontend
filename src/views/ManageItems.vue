@@ -56,7 +56,7 @@
 import EditItemModal from '../components/EditItemModal';
 import DeleteModal from '../components/DeleteModal';
 import ky from 'ky';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'ManageItems',
@@ -117,6 +117,7 @@ export default {
 			this.loaded = false;
 			await ky.put('/api/items', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -130,6 +131,7 @@ export default {
 			this.loaded = false;
 			await ky.post('/api/items', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 
@@ -146,6 +148,7 @@ export default {
 			const data = {id};
 			await ky.delete('/api/items', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				json: data,
 			});
 

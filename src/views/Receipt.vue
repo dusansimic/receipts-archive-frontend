@@ -30,7 +30,8 @@ export default {
 		async deleteReceipt() {
 			const data = {id: this.$route.params.id};
 			await ky.delete('/api/receipts', {
-				...credentialsOptions,
+				...credentailsOptions,
+...prefixApiOptions,
 				json: data,
 			});
 

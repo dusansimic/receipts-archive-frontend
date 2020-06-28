@@ -65,7 +65,7 @@
 <script>
 import ky from 'ky';
 import debounce from 'lodash/debounce';
-import {credentialsOptions} from '../common';
+import {credentialsOptions, prefixApiOptions} from '../common';
 
 export default {
 	name: 'EditItemInReceiptModal',
@@ -132,6 +132,7 @@ export default {
 
 			this.searchResultsTable.itemsSearchResults = await ky.get('/api/items', {
 				...credentialsOptions,
+				...prefixApiOptions,
 				searchParams: {
 					name: this.modalFormData.name,
 				},
