@@ -5,19 +5,19 @@ FROM node:lts-alpine as builder
 WORKDIR /app
 
 # Copy package.json
-COPY package.json .
+COPY package.json yarn.lock ./
 
 ENV VUE_APP_BACKEND_URL=http://localhost:3000
 ENV VUE_APP_FRONTEND_URL=http://localhost:8080
 
 # Download all dependencies
-RUN npm install
+RUN yarn
 
 # Copy all the source
 COPY . .
 
 # Build the website
-RUN npm run build
+RUN yarn build
 
 # Start new stage
 FROM nginx:alpine
