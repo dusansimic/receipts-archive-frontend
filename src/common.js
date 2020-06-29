@@ -7,7 +7,7 @@ const handleInvalidSession = async (_request, _options, response) => {
 		};
 
 		if (data.status === 401 && data.json.message === 'session has expired or is invalid') {
-			location.href = `${process.env.VUE_APP_FRONTEND_URL}/login`;
+			location.href = '/login';
 		}
 	}
 };
