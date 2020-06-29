@@ -1,63 +1,39 @@
 <template>
 	<div>
 		<h2>Home</h2>
-		<BTable
-			hover
-			:items="receiptsList"
-			:fields="tableFields"
-			@row-clicked="manageReceipt"
-		>
-			<template #cell(totalPrice)="row">
-				{{ row.item.totalPrice.toFixed(2) }}
-			</template>
-			<template #cell(createdAt)="row">
-				{{ row.item.createdAt | moment('from', 'now') }}
-			</template>
-		</BTable>
+		<BCardGroup deck>
+			<BCard bg-variant="light" header="Locations" class="text-center">
+				<BCardText>
+					Edit locations for receipts.
+				</BCardText>
+				<BButton to="/manage/locations">
+					Manage locations
+				</BButton>
+			</BCard>
+
+			<BCard bg-variant="light" header="Receipts" class="text-center">
+				<BCardText>
+					Edit all the receipts.
+				</BCardText>
+				<BButton to="/manage/receipts">
+					Manage receipts
+				</BButton>
+			</BCard>
+
+			<BCard bg-variant="light" header="Items" class="text-center">
+				<BCardText>
+					Edit items that can be used in receipts.
+				</BCardText>
+				<BButton to="/manage/items">
+					Manage items
+				</BButton>
+			</BCard>
+		</BCardGroup>
 	</div>
 </template>
 
 <script>
-import ky from 'ky';
-import {credentialsOptions, prefixApiOptions} from '../common';
-
 export default {
 	name: 'Home',
-	data() {
-		return {
-			tableFields: [
-				{
-					key: 'totalPrice',
-					label: 'Price',
-					sortable: true,
-				},
-				{
-					key: 'location.name',
-					label: 'Location',
-					sortable: false,
-				},
-				{
-					key: 'createdAt',
-					label: 'Created at',
-					sortable: true,
-				},
-			],
-			receiptsList: [],
-		};
-	},
-	mounted() {
-		this.getReceiptsList();
-	},
-	methods: {
-		async getReceiptsList() {
-			this.receiptsList = await ky.get('receipts', {
-				...credentialsOptions,
-				...prefixApiOptions,
-			}).json();
-		},
-		manageReceipt(receipt) {
-			this.$router.push({name: 'Receipt', params: {id: receipt.id}});
-		},
-	},
 };
 </script>
