@@ -6,10 +6,7 @@
 			</BCol>
 		</BRow>
 		<BRow>
-			<BCol
-				lg="10"
-				md="10"
-			>
+			<BCol>
 				<RouterView />
 			</BCol>
 		</BRow>
